@@ -179,9 +179,9 @@ app.init();
 //       console.log('clicked!');
 //     });
 $(document).ready(function () {
-    $('#submitButton').on('click', function() {
-      app.handleSubmit();
-    }); 
+  $('#submitButton').on('click', function() {
+    app.handleSubmit();
+  }); 
     
 });
 

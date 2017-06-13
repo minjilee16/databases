@@ -6,7 +6,7 @@ var mysql = require('mysql');
 
 
 var con = mysql.createConnection({
-  host: 'localhost', // I THINK THIS IS RIGHT
+  host: 'http://127.0.0.1:3000/classes', // I THINK THIS IS RIGHT
   user: 'root', //I THINK THIS IS RIGHT
   password: 'plantlife'
 });
