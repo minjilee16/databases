@@ -3,13 +3,16 @@ var db = require('../db');
 module.exports = {
   messages: {
     get: function (callback) {
-      queryString = 'SELECT * FROM MESSAGES;';
+      // fetch all messages
+      // id, text , roomname and username 
+      var queryString = 'SELECT messages.id, messages.text, messages.username, users.username FROM MESSAGES left out join users on (messages.userid= users.id) order by messages.id desc;';
       db.query(queryString, function(err, results) {
         callback(err, results);
       });
     },  // a function which produces all the messages
     post: function (callback) {
-      var queryString = 'insert into messages (id, text, roomname, username) value (?,?,?)';
+    // store a messsage 
+      var queryString = 'insert into messages (text, userid, roomname) value (?, (select id from users where username =? limit 1), ?)';
       db.query(queryString, queryArgs, function(err, results) {
         callback(err, results);
       });
@@ -19,13 +22,15 @@ module.exports = {
   users: {
     // Ditto as above.
     get: function (callback) {
-      queryString = 'SELECT * FROM USERNAMES;';
+      // fetch all users 
+      var queryString = 'SELECT * FROM USERNAMES;';
       db.query(queryString, function(err, results) {
         callback(err, results);
       });
     },
-    post: function (callback) {
-      var queryString = 'insert into USERNAMES (id, name) value (?,?id)';
+    post: function (parasm, callback) {
+    // create a user 
+      var queryString = 'insert into users(username) value (?)';
       db.query(queryString, queryArgs, function(err, results) {
         callback(err, results);
       });
@@ -33,7 +38,7 @@ module.exports = {
   }
 };
 
-var mockMessages = 
+// var mockMessages = 
 
 module.exports.messages.get();
 
